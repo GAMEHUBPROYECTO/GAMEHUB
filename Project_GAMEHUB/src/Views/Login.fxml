@@ -1,11 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1300.0" style="-fx-background-color: #FFFFFF;" stylesheets="@../Style/Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23" fx:controller="Controllers.LoginController">
+   <children>
+      <Pane prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #FF9800; -fx-border-color: #000000; -fx-border-width: 3 3 1 3;" />
+      <Pane layoutY="660.0" prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #000000;" />
+      <Pane layoutY="40.0" prefHeight="140.0" prefWidth="1300.0" style="-fx-background-color: #36332F; -fx-border-color: #000000; -fx-border-width: 5px;">
+         <children>
+            <ImageView fitHeight="120.0" fitWidth="154.0" layoutX="573.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button focusTraversable="false" layoutX="1110.0" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #CACACA;" text="Ingreso para los admins">
+         <font>
+            <Font name="Georgia Bold" size="12.0" />
+         </font>
+      </Button>
+      <Pane layoutX="426.0" layoutY="219.0" prefHeight="330.0" prefWidth="500.0" style="-fx-background-color: none; -fx-border-color: #000000; -fx-border-width: 2;">
+         <children>
+            <Text layoutX="100.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField focusTraversable="false" layoutX="100.0" layoutY="124.0" prefHeight="34.0" prefWidth="330.0" />
+            <Text layoutX="100.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField focusTraversable="false" layoutX="100.0" layoutY="208.0" prefHeight="34.0" prefWidth="330.0" />
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="41.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Person.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="41.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Lock.png" />
+               </image>
+            </ImageView>
+            <Button focusTraversable="false" layoutX="345.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" styleClass="buttons_login_signup" text="Log in">
+               <font>
+                  <Font name="Georgia" size="12.0" />
+               </font>
+            </Button>
+            <Button focusTraversable="false" layoutX="212.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" styleClass="buttons_login_signup" text="Sign up">
+               <font>
+                  <Font name="Georgia" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="403.0" layoutY="209.0" prefHeight="100.0" prefWidth="303.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Pane layoutX="24.0" layoutY="11.0" prefHeight="69.0" prefWidth="159.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF; -fx-border-width: 2 0 2 2;">
+               <children>
+                  <Text layoutX="26.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
+                     <font>
+                        <Font name="Georgia Bold" size="30.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Line endX="271.0" endY="13.0" layoutX="-1.0" startX="183.0" startY="79.0" strokeWidth="2.0" />
+            <Line endX="23.0" endY="1.0" layoutX="10.0" layoutY="11.0" startX="259.0" startY="1.0" strokeWidth="2.0" />
+            <Line endX="180.5858154296875" endY="90.0" layoutX="9.0" layoutY="10.0" startX="17.0" startY="90.0" strokeWidth="2.0" />
+            <Line endX="243.0" endY="-11.0" layoutX="60.0" layoutY="22.0" startX="130.5858154296875" startY="77.0" strokeWidth="2.0" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

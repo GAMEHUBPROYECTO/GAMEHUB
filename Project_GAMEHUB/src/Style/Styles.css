@@ -1,0 +1,6 @@
+.buttons_login_signup{
+    -fx-background-color: #CACACA;
+    -fx-font-family: 'Georgia';
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
