@@ -23,8 +23,8 @@ import javafx.stage.Stage;
 
 public class SignUPController implements Initializable {
 
-    private List_Double_Admins listAdmins = Instancias.getInstancias().getListAdmins();
-    private List_Double_Clients listClients = Instancias.getInstancias().getListClients();
+    private final List_Double_Admins listAdmins = Instancias.getInstancias().getListAdmins();
+    private final List_Double_Clients listClients = Instancias.getInstancias().getListClients();
 
     @FXML
     private Pane signup_users;
