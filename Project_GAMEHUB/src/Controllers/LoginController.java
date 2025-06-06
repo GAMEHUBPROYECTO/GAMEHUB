@@ -1,5 +1,8 @@
 package Controllers;
 
+import Lists.Instancias;
+import Lists.List_Double_Admins;
+import Lists.List_Double_Clients;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +23,9 @@ import javafx.stage.WindowEvent;
 
 public class LoginController implements Initializable {
 
+    private List_Double_Admins listAdmins = Instancias.getInstancias().getListAdmins();
+    private List_Double_Clients listClients = Instancias.getInstancias().getListClients();    
+    
     @FXML
     private Pane login_users;
     @FXML
@@ -47,7 +53,8 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        listAdmins.loadDataFromFileTXT();
+        listClients.loadDataFromFileTXT();
     }
 
     public void run_signup(String type) {

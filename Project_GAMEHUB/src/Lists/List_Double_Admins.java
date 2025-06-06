@@ -45,22 +45,22 @@ public class List_Double_Admins {
         return null;
     }
 
-    public void addAmin(TextField txtNombre, TextField txtPassword) {
+    public void addAmin(TextField txtAdminName, TextField txtPassword_Admin) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
 
-        Admin admin = findByName(txtNombre.getText());
+        Admin admin = findByName(txtAdminName.getText());
 
         try {
             if (admin != null) {
                 alert.setTitle("Importante...!");
                 alert.setContentText("Ya existe un administrador con este Nombre");
                 alert.showAndWait();
-                txtNombre.clear();
-                txtNombre.requestFocus();
+                txtAdminName.clear();
+                txtAdminName.requestFocus();
                 return;
             }
 
-            Admin nuevo = new Admin(txtNombre.getText(), txtPassword.getText());
+            Admin nuevo = new Admin(txtAdminName.getText(), txtPassword_Admin.getText());
 
             if (getCabeza() == null) {
                 nuevo.setSig(nuevo);
@@ -81,8 +81,8 @@ public class List_Double_Admins {
             alert.setContentText("Registro realizado con éxito.\n¡Ya haces parte de nuestros administradores!");
             alert.showAndWait();
 
-            txtNombre.clear();
-            txtPassword.clear();
+            txtAdminName.clear();
+            txtPassword_Admin.clear();
 
         } catch (NumberFormatException e) {
             Logger.getLogger(List_Double_Admins.class.getName()).log(Level.SEVERE, null, e);
@@ -98,14 +98,14 @@ public class List_Double_Admins {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivo.toFile(), false))) {
             Admin actual = cabeza;
 
-            while (actual != null) {
+            do {
                 writer.write(actual.getName_admin()+ ", ");
                 writer.write(actual.getPassword());
                 
                 writer.newLine();
 
                 actual = actual.getSig();
-            }           
+            } while (actual != cabeza);          
         } catch (IOException e) {
             Logger.getLogger(List_Double_Admins.class.getName()).log(Level.SEVERE, null, e);
         }
