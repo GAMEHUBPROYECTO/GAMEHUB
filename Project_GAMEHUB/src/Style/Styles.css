@@ -4,3 +4,40 @@
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
 }
+
+.nav-bar{
+    -fx-background-color: #36332F;
+    -fx-border-color:  #000000;
+    -fx-border-width:  5 3 5 3;
+}
+
+.btn-nav-bar{
+    -fx-background-color: none;
+    -fx-pref-width: 160px;
+    -fx-pref-height: 50px;
+    -fx-cursor: hand;
+}
+
+.btn-nav-bar:hover{
+    -fx-background-color: #595959;
+}
+
+.btn-profile{    
+    -fx-background-color: none;    
+    -fx-border-color: #FFFFFF;
+}
+
+.btn-profile:hover{
+    -fx-background-color: #595959;
+}
+
+.btn-menu-left{
+    -fx-background-color: none;
+    -fx-pref-width: 188px;
+    -fx-pref-height: 72px;
+    -fx-cursor: hand;
+}
+
+.btn-menu-left:hover{
+    -fx-background-color: #595959;
+}
