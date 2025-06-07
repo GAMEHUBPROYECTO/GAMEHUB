@@ -16,7 +16,7 @@
    <children>
       <Pane prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #FF9800; -fx-border-color: #000000; -fx-border-width: 3 3 1 3;" />
       <Pane layoutY="660.0" prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #000000;" />
-      <Pane layoutY="40.0" prefHeight="140.0" prefWidth="1300.0" style="-fx-background-color: #36332F; -fx-border-color: #000000; -fx-border-width: 5 3 5 3;">
+      <Pane layoutY="40.0" prefHeight="140.0" prefWidth="1300.0" styleClass="nav-bar">
          <children>
             <ImageView fitHeight="120.0" fitWidth="154.0" layoutX="573.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>

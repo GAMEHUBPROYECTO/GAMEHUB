@@ -12,10 +12,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +31,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class LoginController implements Initializable {
 
@@ -74,6 +77,33 @@ public class LoginController implements Initializable {
             Parent root = loader.load();
 
             SignUPController controller = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+
+            stage.setScene(scene);
+
+            stage.setOnShown(event -> controller.setVisible(type));
+
+            stage.setOnCloseRequest((WindowEvent value) -> {
+                controller.run_login(type);
+            });
+
+            stage.show();
+
+            Stage miStage = (Stage) this.btn_login.getScene().getWindow();
+            miStage.close();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void run_GAMEHUB(String type) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/GAMEHUB.fxml"));
+            Parent root = loader.load();
+
+            GAMEHUBController controller = loader.getController();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -158,7 +188,7 @@ public class LoginController implements Initializable {
                 Admin admin = listAdmins.findByName(txtAdminName.getText());
 
                 if (admin == null) {
-                    list_texts.add(createText("El ADMIN NAME no está registrado o es erroneo, por favor verifique", ""));
+                    list_texts.add(createText("El ADMIN NAME no está registrado o es erroneo, verifique", ""));
                     txtAdminName.setText("");
                     txtPasswordAdmin.setText("");
                     txtAdminName.requestFocus();
@@ -166,10 +196,19 @@ public class LoginController implements Initializable {
 
                 if (admin != null && admin.getPassword().equals(txtPasswordAdmin.getText())) {
 
-                    list_texts.add(createText("ENTRANDOOO...!", "TRUE"));
-
+                    list_texts.add(createText("CREDENCIALES CORRECTAS, ENTRANDOOO...!", "TRUE"));
                     txtAdminName.setText("");
                     txtPasswordAdmin.setText("");
+
+                    Scene scene = btn_login_admin.getScene();
+                    scene.setCursor(Cursor.WAIT);
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(5));
+                    pause.setOnFinished(event -> {
+                        scene.setCursor(Cursor.DEFAULT);
+                        run_GAMEHUB(type);
+                    });
+                    pause.play();
                 } else {
                     list_texts.add(createText("Contraseña incorrecta", ""));
                     txtPasswordAdmin.setText("");
@@ -189,7 +228,7 @@ public class LoginController implements Initializable {
                 Client client = listClients.findByName(txtUsername.getText());
 
                 if (client == null) {
-                    list_texts.add(createText("El USEERNAME no está registrado o es erroneo, por favor verifique", ""));
+                    list_texts.add(createText("El USEERNAME no está registrado o es erroneo, verifique", ""));
                     txtUsername.setText("");
                     txtPasswordUser.setText("");
                     txtUsername.requestFocus();
@@ -197,10 +236,19 @@ public class LoginController implements Initializable {
 
                 if (client != null && client.getPassword().equals(txtPasswordUser.getText())) {
 
-                    list_texts.add(createText("ENTRANDOOO...!", "TRUE"));
-                    
+                    list_texts.add(createText("CREDENCIALES CORRECTAS, ENTRANDOOO...!", "TRUE"));
                     txtUsername.setText("");
                     txtPasswordUser.setText("");
+
+                    Scene scene = btn_login_admin.getScene();
+                    scene.setCursor(Cursor.WAIT);
+
+                    PauseTransition pause = new PauseTransition(Duration.seconds(5));
+                    pause.setOnFinished(event -> {
+                        scene.setCursor(Cursor.DEFAULT);
+                        run_GAMEHUB(type);
+                    });
+                    pause.play();
                 } else {
                     list_texts.add(createText("Contraseña incorrecta", ""));
                     txtPasswordUser.setText("");
