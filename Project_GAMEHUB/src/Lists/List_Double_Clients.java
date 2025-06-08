@@ -53,7 +53,7 @@ public class List_Double_Clients {
         try {
             if (client != null) {
                 alert.setTitle("Importante...!");
-                alert.setContentText("Ya existe un administrador con este Nombre");
+                alert.setContentText("Ya existe un cliente con este Nombre");
                 alert.showAndWait();
                 txtClientName.clear();
                 txtClientName.requestFocus();
