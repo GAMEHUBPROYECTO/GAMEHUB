@@ -39,6 +39,7 @@ public class Stacks_Games {
         return games_favorites;
     }
     
+    //games_car_shop
     public void setPushGame(Game game) {
         int pos = games_car_shop.indexOf(game);
         if (pos == -1) {
@@ -129,6 +130,230 @@ public class Stacks_Games {
 
             if (!games_car_shop.isEmpty()) {
                 games_car_shop.clear();
+            }
+
+            while ((linea = reader.readLine()) != null) {
+                
+                String[] atributos = linea.split(",; ");
+                
+                String name_user = atributos[0];
+                String name = atributos[1];
+                float price = Float.parseFloat(atributos[2]);
+                
+                String[] urls = atributos[3].split(". ");               
+                List<String> URL_images = Arrays.asList(urls);
+                
+                Game game = new Game(name_user, name, price, URL_images);
+                setPushGame(game);
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    //games_history    
+    public void setPushGameHistory(Game game) {
+        int pos = games_history.indexOf(game);
+        if (pos == -1) {
+            games_history.push(game);
+        } else {
+            System.out.println("Ya se registró antes este juego.");
+        }
+    }
+
+    public Stack<Game> getGamesNameUserHistory(String name_user) {
+        Stack<Game> stack = new Stack<>();
+        for (Game aux : games_history) {
+            if (aux.getName_user().equals(name_user)) {
+                stack.push(aux);
+            }
+        }
+        return stack;
+    }
+
+    public Game getGameByNameUserAndNameHistory(String name_user, String name) {
+        for (Game game : games_history) {
+            if (game.getName_user().equals(name_user) && game.getName().equals(name)) {
+                return game;
+            }
+        }
+        return null;
+    }
+
+    public void setPopGameByNameUserAndNameHistory(String name_user, String name) {
+        Game game = null;
+        if (!games_history.empty()) {
+            game = getGameByNameUserAndName(name_user, name);
+            if ((game != null) && (games_history.remove(game))) {
+                JOptionPane.showMessageDialog(null, "Juego eliminado!");
+            } else {
+                JOptionPane.showMessageDialog(null, "El juego no existe!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay juegos registrados!");
+        }
+    }
+
+    public Stack<Game> getCloneGamesHistory() {
+        Stack<Game> games = new Stack<>();
+        int i;
+        Game game = null;
+        if (games_history == null) {
+            return null;
+        } else {
+            for (i = 0; i < games_history.size(); i++) {
+                game = games_history.get(i);
+                games.add(i, game);
+            }
+            return games;
+        }
+    }
+
+    public void saveDataToFileTXTHistory() {
+
+        String url = System.getProperty("user.dir") + "\\src\\Files\\History.txt";
+
+        Path path = Paths.get(url);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
+            Stack<Game> games = games_history;
+
+            for (Game game : games) {
+                writer.write(game.getName_user() + ",; ");
+                writer.write(game.getName() + ",; ");
+                writer.write(game.getPrice() + ",; ");
+                writer.write(String.join(". ", game.getURL_images()));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public void loadDataFromFileTXTHistory() {
+
+        String url = System.getProperty("user.dir") + "\\src\\Files\\History.txt";
+
+        Path path = Paths.get(url);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+
+            String linea;
+
+            if (!games_history.isEmpty()) {
+                games_history.clear();
+            }
+
+            while ((linea = reader.readLine()) != null) {
+                
+                String[] atributos = linea.split(",; ");
+                
+                String name_user = atributos[0];
+                String name = atributos[1];
+                float price = Float.parseFloat(atributos[2]);
+                
+                String[] urls = atributos[3].split(". ");               
+                List<String> URL_images = Arrays.asList(urls);
+                
+                Game game = new Game(name_user, name, price, URL_images);
+                setPushGame(game);
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    //games_favorites    
+    public void setPushGameFavorites(Game game) {
+        int pos = games_favorites.indexOf(game);
+        if (pos == -1) {
+            games_favorites.push(game);
+        } else {
+            System.out.println("Ya se registró antes este juego.");
+        }
+    }
+
+    public Stack<Game> getGamesNameUserFavorites(String name_user) {
+        Stack<Game> stack = new Stack<>();
+        for (Game aux : games_favorites) {
+            if (aux.getName_user().equals(name_user)) {
+                stack.push(aux);
+            }
+        }
+        return stack;
+    }
+
+    public Game getGameByNameUserAndNameFavorites(String name_user, String name) {
+        for (Game game : games_favorites) {
+            if (game.getName_user().equals(name_user) && game.getName().equals(name)) {
+                return game;
+            }
+        }
+        return null;
+    }
+
+    public void setPopGameByNameUserAndNameFavorites(String name_user, String name) {
+        Game game = null;
+        if (!games_favorites.empty()) {
+            game = getGameByNameUserAndName(name_user, name);
+            if ((game != null) && (games_favorites.remove(game))) {
+                JOptionPane.showMessageDialog(null, "Juego eliminado!");
+            } else {
+                JOptionPane.showMessageDialog(null, "El juego no existe!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay juegos registrados!");
+        }
+    }
+
+    public Stack<Game> getCloneGamesFavorites() {
+        Stack<Game> games = new Stack<>();
+        int i;
+        Game game = null;
+        if (games_favorites == null) {
+            return null;
+        } else {
+            for (i = 0; i < games_favorites.size(); i++) {
+                game = games_favorites.get(i);
+                games.add(i, game);
+            }
+            return games;
+        }
+    }
+
+    public void saveDataToFileTXTFavorites() {
+
+        String url = System.getProperty("user.dir") + "\\src\\Files\\Favorites.txt";
+
+        Path path = Paths.get(url);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
+            Stack<Game> games = games_favorites;
+
+            for (Game game : games) {
+                writer.write(game.getName_user() + ",; ");
+                writer.write(game.getName() + ",; ");
+                writer.write(game.getPrice() + ",; ");
+                writer.write(String.join(". ", game.getURL_images()));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public void loadDataFromFileTXTFavorites() {
+
+        String url = System.getProperty("user.dir") + "\\src\\Files\\Favorites.txt";
+
+        Path path = Paths.get(url);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+
+            String linea;
+
+            if (!games_favorites.isEmpty()) {
+                games_favorites.clear();
             }
 
             while ((linea = reader.readLine()) != null) {
