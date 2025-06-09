@@ -22,8 +22,8 @@
     -fx-background-color: #595959;
 }
 
-.btn-profile{    
-    -fx-background-color: none;    
+.btn-profile{
+    -fx-background-color: none;
     -fx-border-color: #FFFFFF;
 }
 
@@ -40,4 +40,54 @@
 
 .btn-menu-left:hover{
     -fx-background-color: #595959;
+}
+
+.btn-show{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+.btn-show:hover{
+    -fx-background-color: #CACACA;
+}
+
+.btn-shop{
+    -fx-background-color: #228B22;
+    -fx-cursor: hand;
+}
+
+.btn-shop:hover{
+    -fx-background-color: #459D45;
+}
+
+.panel-juegos{
+
+    -fx-border-color: #000000;
+    -fx-border-radius: 5px;
+}
+
+.panel-juegos .label{
+
+    -fx-layout-x: 1.0;
+    -fx-layout-y: 21.0;
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-font-size: 14.0;
+    -fx-background-fills: #000000;
+}
+
+.panel-juegos #base {
+
+    -fx-layout-x: 1.0;
+    -fx-layout-y: 21.0;
+    -fx-font-family: "System";
+    -fx-font-weight: bold;
+    -fx-font-size: 10.0;
+    -fx-background-fills: #000000;
+}
+
+#gratis{
+
+    -fx-background-color:  #30B0F9;
+    -fx-background-radius:  4px;
 }

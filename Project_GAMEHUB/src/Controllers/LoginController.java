@@ -3,6 +3,7 @@ package Controllers;
 import Lists.Instancias;
 import Lists.List_Double_Admins;
 import Lists.List_Double_Clients;
+import Lists.Stacks_Games;
 import Models.Admin;
 import Models.Client;
 import java.io.IOException;
@@ -35,9 +36,10 @@ import javafx.util.Duration;
 
 public class LoginController implements Initializable {
 
-    private final List_Double_Admins listAdmins = Instancias.getInstancias().getListAdmins();
-    private final List_Double_Clients listClients = Instancias.getInstancias().getListClients();
-
+    private final List_Double_Admins listAdmins = Instancias.getInstancias().getList_admins();
+    private final List_Double_Clients listClients = Instancias.getInstancias().getList_clients();
+    private final Stacks_Games stacksGames = Instancias.getInstancias().getStacks_games();
+    
     @FXML
     private Pane login_users;
     @FXML
@@ -69,6 +71,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         listAdmins.loadDataFromFileTXT();
         listClients.loadDataFromFileTXT();
+        stacksGames.loadDataFromFileTXTAll();
     }
 
     public void run_signup(String type) {
@@ -110,8 +113,11 @@ public class LoginController implements Initializable {
 
             stage.setScene(scene);
 
-            stage.setOnShown(event -> controller.setVisible(type));
-
+            stage.setOnShown((WindowEvent event) -> {
+                controller.setVisible(type);        
+                controller.load_user_data();
+            });                        
+            
             stage.setOnCloseRequest((WindowEvent value) -> {
                 controller.run_login(type);
             });
