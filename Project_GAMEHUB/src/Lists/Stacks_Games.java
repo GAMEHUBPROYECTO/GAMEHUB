@@ -20,11 +20,13 @@ public class Stacks_Games {
     private final Stack<Game> games_car_shop;
     private final Stack<Game> games_history;
     private final Stack<Game> games_favorites;
+    private final Stack<Game> all_games;
 
     public Stacks_Games() {
         this.games_car_shop = new Stack<>();
         this.games_history = new Stack<>();
         this.games_favorites = new Stack<>();
+        this.all_games = new Stack<>();
     }
 
     public Stack<Game> getGames_car_shop() {
@@ -38,7 +40,11 @@ public class Stacks_Games {
     public Stack<Game> getGames_favorites() {
         return games_favorites;
     }
-    
+
+    public Stack<Game> getAll_games() {
+        return all_games;
+    }
+
     //games_car_shop
     public void setPushGame(Game game) {
         int pos = games_car_shop.indexOf(game);
@@ -133,16 +139,16 @@ public class Stacks_Games {
             }
 
             while ((linea = reader.readLine()) != null) {
-                
+
                 String[] atributos = linea.split(",; ");
-                
+
                 String name_user = atributos[0];
                 String name = atributos[1];
                 float price = Float.parseFloat(atributos[2]);
-                
-                String[] urls = atributos[3].split(". ");               
+
+                String[] urls = atributos[3].split(". ");
                 List<String> URL_images = Arrays.asList(urls);
-                
+
                 Game game = new Game(name_user, name, price, URL_images);
                 setPushGame(game);
             }
@@ -150,7 +156,7 @@ public class Stacks_Games {
             Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+
     //games_history    
     public void setPushGameHistory(Game game) {
         int pos = games_history.indexOf(game);
@@ -183,7 +189,7 @@ public class Stacks_Games {
     public void setPopGameByNameUserAndNameHistory(String name_user, String name) {
         Game game = null;
         if (!games_history.empty()) {
-            game = getGameByNameUserAndName(name_user, name);
+            game = getGameByNameUserAndNameHistory(name_user, name);
             if ((game != null) && (games_history.remove(game))) {
                 JOptionPane.showMessageDialog(null, "Juego eliminado!");
             } else {
@@ -245,24 +251,24 @@ public class Stacks_Games {
             }
 
             while ((linea = reader.readLine()) != null) {
-                
+
                 String[] atributos = linea.split(",; ");
-                
+
                 String name_user = atributos[0];
                 String name = atributos[1];
                 float price = Float.parseFloat(atributos[2]);
-                
-                String[] urls = atributos[3].split(". ");               
+
+                String[] urls = atributos[3].split(". ");
                 List<String> URL_images = Arrays.asList(urls);
-                
+
                 Game game = new Game(name_user, name, price, URL_images);
-                setPushGame(game);
+                setPushGameHistory(game);
             }
         } catch (IOException e) {
             Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+
     //games_favorites    
     public void setPushGameFavorites(Game game) {
         int pos = games_favorites.indexOf(game);
@@ -295,7 +301,7 @@ public class Stacks_Games {
     public void setPopGameByNameUserAndNameFavorites(String name_user, String name) {
         Game game = null;
         if (!games_favorites.empty()) {
-            game = getGameByNameUserAndName(name_user, name);
+            game = getGameByNameUserAndNameFavorites(name_user, name);
             if ((game != null) && (games_favorites.remove(game))) {
                 JOptionPane.showMessageDialog(null, "Juego eliminado!");
             } else {
@@ -357,18 +363,118 @@ public class Stacks_Games {
             }
 
             while ((linea = reader.readLine()) != null) {
-                
+
                 String[] atributos = linea.split(",; ");
-                
+
                 String name_user = atributos[0];
                 String name = atributos[1];
                 float price = Float.parseFloat(atributos[2]);
-                
-                String[] urls = atributos[3].split(". ");               
+
+                String[] urls = atributos[3].split(". ");
                 List<String> URL_images = Arrays.asList(urls);
-                
+
                 Game game = new Game(name_user, name, price, URL_images);
-                setPushGame(game);
+                setPushGameFavorites(game);
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    //all_games
+    public void setPushGameAll(Game game) {
+        int pos = all_games.indexOf(game);
+        if (pos == -1) {
+            all_games.push(game);
+        } else {
+            System.out.println("Ya se registró antes este juego.");
+        }
+    }
+
+    public Game getGameByNameAll(String name) {
+        for (Game game : all_games) {
+            if (game.getName().equals(name)) {
+                return game;
+            }
+        }
+        return null;
+    }
+
+    public void setPopGameByNameAll(String name) {
+        Game game = null;
+        if (!all_games.empty()) {
+            game = getGameByNameAll(name);
+            if ((game != null) && (all_games.remove(game))) {
+                JOptionPane.showMessageDialog(null, "Juego eliminado!");
+            } else {
+                JOptionPane.showMessageDialog(null, "El juego no existe!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay juegos registrados!");
+        }
+    }
+
+    public Stack<Game> getCloneGamesAll() {
+        Stack<Game> games = new Stack<>();
+        int i;
+        Game game = null;
+        if (all_games == null) {
+            return null;
+        } else {
+            for (i = 0; i < all_games.size(); i++) {
+                game = all_games.get(i);
+                games.add(i, game);
+            }
+            return games;
+        }
+    }
+
+    public void saveDataToFileTXTAll() {
+
+        String url = System.getProperty("user.dir") + "\\src\\Files\\Games.txt";
+
+        Path path = Paths.get(url);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
+            Stack<Game> games = all_games;
+
+            for (Game game : games) {
+                writer.write(game.getName() + ",; ");
+                writer.write(game.getPrice() + ",; ");
+                writer.write(String.join("; ", game.getURL_images()));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public void loadDataFromFileTXTAll() {
+
+        String url = System.getProperty("user.dir") + "\\src\\Files\\Games.txt";
+
+        Path path = Paths.get(url);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+
+            String linea;
+
+            if (!all_games.isEmpty()) {
+                all_games.clear();
+            }
+
+            while ((linea = reader.readLine()) != null) {
+
+                String[] atributos = linea.split(",; ");
+
+                String name = atributos[0];
+                float price = Float.parseFloat(atributos[1]);
+
+                String[] urls = atributos[2].split("; ");
+                List<String> URL_images = Arrays.asList(urls);
+
+                Game game = new Game(name, price, URL_images);
+                setPushGameAll(game);
             }
         } catch (IOException e) {
             Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);

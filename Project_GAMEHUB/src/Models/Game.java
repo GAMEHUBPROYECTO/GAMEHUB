@@ -15,6 +15,13 @@ public class Game {
         this.price = price;
         this.URL_images = URL_images;
     }
+    
+    public Game(String name, float price, List<String> URL_images) {
+        this.name_user = null;
+        this.name = name;
+        this.price = price;
+        this.URL_images = URL_images;
+    }
 
     public String getName_user() {
         return name_user;
