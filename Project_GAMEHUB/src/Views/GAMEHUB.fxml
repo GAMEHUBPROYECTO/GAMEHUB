@@ -131,17 +131,17 @@
          </children>
       </Pane>
       <Pane prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #FF9800; -fx-border-color: #000000; -fx-border-width: 3 3 1 3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ScrollPane fx:id="container_all_games" focusTraversable="false" hbarPolicy="NEVER" pannable="true" prefHeight="525.0" prefWidth="780.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
+      <ScrollPane fx:id="container_all_games" focusTraversable="false" hbarPolicy="NEVER" prefHeight="525.0" prefWidth="780.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
          <content>
             <AnchorPane fx:id="anchorP" maxHeight="1800.0" minHeight="1800.0" pickOnBounds="false" prefHeight="1800.0" prefWidth="1040.0">
                <children>
-                  <AnchorPane layoutX="73.0" layoutY="28.0" prefHeight="407.0" prefWidth="705.0" style="-fx-border-color: #000000; -fx-background-color: #36332F;" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+                  <AnchorPane layoutX="73.0" layoutY="28.0" prefHeight="407.0" prefWidth="705.0" styleClass="center-panel" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
                      <children>
                         <VBox alignment="CENTER_LEFT" layoutX="24.0" layoutY="24.0" prefHeight="350.0" prefWidth="270.0" style="-fx-border-color: #000000; -fx-border-radius: 8;">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../Images/Games_images/Ima_Red_Dead_2.png" />
+                                    <Image url="@../Images/Games_images/Logo_Games/Logo_Red_Dead.png" />
                                  </image>
                               </ImageView>
                               <VBox prefHeight="112.0" prefWidth="268.0" />
@@ -195,6 +195,26 @@
                                        </font>
                                     </Label>
                                     <Label layoutY="20.0" text="FC 24" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="Fall_Guys" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="180.0" styleClass="panel-juegos">
+                           <children>
+                              <ImageView fitHeight="180.0" fitWidth="140.0" layoutX="20.0" layoutY="10.0" onMouseClicked="#show_game" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/Games_images/Ima_Fall_Guys.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane layoutX="20.0" layoutY="200.0" prefHeight="100.0" prefWidth="140.0">
+                                 <children>
+                                    <Label id="base" text="Juego Base">
+                                       <font>
+                                          <Font name="System Bold" size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutY="20.0" text="Fall Guys" />
+                                    <Label id="gratis" alignment="CENTER" layoutY="65.0" prefHeight="20.0" prefWidth="60.0" text="Gratis" />
                                  </children>
                               </Pane>
                            </children>
@@ -359,26 +379,6 @@
                               </Pane>
                            </children>
                         </Pane>
-                        <Pane fx:id="Fall_Guys" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="180.0" styleClass="panel-juegos">
-                           <children>
-                              <ImageView fitHeight="180.0" fitWidth="140.0" layoutX="20.0" layoutY="10.0" onMouseClicked="#show_game" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Images/Games_images/Ima_Fall_Guys.png" />
-                                 </image>
-                              </ImageView>
-                              <Pane layoutX="20.0" layoutY="200.0" prefHeight="100.0" prefWidth="140.0">
-                                 <children>
-                                    <Label id="base" text="Juego Base">
-                                       <font>
-                                          <Font name="System Bold" size="10.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutY="20.0" text="Fall Guys" />
-                                    <Label id="gratis" alignment="CENTER" layoutY="65.0" prefHeight="20.0" prefWidth="60.0" text="Gratis" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </Pane>
                         <Pane fx:id="The_Hunter" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="180.0" styleClass="panel-juegos">
                            <children>
                               <ImageView fitHeight="180.0" fitWidth="140.0" layoutX="20.0" layoutY="10.0" onMouseClicked="#show_game" pickOnBounds="true" preserveRatio="true">
@@ -468,7 +468,7 @@
                      <children>
                         <ScrollPane focusTraversable="false" hbarPolicy="NEVER" layoutX="22.0" layoutY="22.0" prefHeight="450.0" prefWidth="212.0" styleClass="track" vbarPolicy="NEVER">
                            <content>
-                              <FlowPane fx:id="flow_relationship" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="20.0" prefHeight="957.0" prefWidth="213.0" prefWrapLength="600.0" rowValignment="TOP" styleClass="bacgroundBoddy" vgap="20.0">
+                              <FlowPane fx:id="flow_relationship" alignment="TOP_CENTER" columnHalignment="CENTER" hgap="20.0" prefHeight="957.0" prefWidth="213.0" prefWrapLength="600.0" rowValignment="TOP" style="-fx-background-color: none; -fx-border-color: none;" vgap="20.0">
                                  <children>
                                     <Button fx:id="btn_game1" graphicTextGap="25.0" mnemonicParsing="false" onAction="#show_game_2" prefHeight="80.0" prefWidth="200.0" styleClass="btn-show" text="Red Dead ">
                                        <graphic>
@@ -660,9 +660,9 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <HBox fx:id="HBOX_details_game" prefHeight="100.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
+      <HBox fx:id="HBOX_details_game" fillHeight="false" prefHeight="100.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
          <children>
-            <ScrollPane fx:id="container_details_game" focusTraversable="false" hbarPolicy="NEVER" pannable="true" prefHeight="485.0" prefWidth="890.0" vbarPolicy="NEVER">
+            <ScrollPane fx:id="container_details_game" focusTraversable="false" hbarPolicy="NEVER" prefHeight="485.0" prefWidth="890.0" vbarPolicy="NEVER">
               <content>
                 <AnchorPane maxHeight="2300.0" minHeight="2300.0" prefHeight="2300.0" prefWidth="1040.0">
                      <children>
@@ -726,38 +726,38 @@
                   </AnchorPane>
               </content>
             </ScrollPane>
-            <Pane prefHeight="570.0" prefWidth="511.0" style="-fx-background-color: whitesmoke;">
+            <Pane prefHeight="570.0" prefWidth="511.0" styleClass="nav-bar">
                <children>
                   <Button fx:id="btn_shop_now" focusTraversable="false" layoutX="16.0" layoutY="283.0" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="60.0" prefWidth="300.0" styleClass="btn-shop" text="COMPRAR AHORA" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_add_car" focusTraversable="false" layoutX="16.0" layoutY="353.0" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: none; -fx-border-color: #000000; -fx-border-radius: 8px;" text="AÑADIR AL CARRITO">
+                  <Button fx:id="btn_add_car" focusTraversable="false" layoutX="16.0" layoutY="353.0" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: none; -fx-border-color: #FFFFFF; -fx-border-radius: 8px;" text="AÑADIR AL CARRITO" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_add_favorites" focusTraversable="false" layoutX="16.0" layoutY="423.0" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: none; -fx-border-color: #000000; -fx-border-radius: 8px;" text="+  A la lista de favoritos">
+                  <Button fx:id="btn_add_favorites" focusTraversable="false" layoutX="16.0" layoutY="423.0" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: none; -fx-border-color: #FFFFFF; -fx-border-radius: 8px;" text="+  A la lista de favoritos" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Button>
                   <Pane fx:id="PanelInfo_Red" layoutX="16.0" layoutY="6.0" prefHeight="268.0" prefWidth="300.0">
                      <children>
-                        <Label fx:id="label_price" layoutX="14.0" layoutY="233.0" text="COP $79960,00">
+                        <Label fx:id="label_price" layoutX="14.0" layoutY="233.0" text="COP $79960,00" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="215.0" text="Juego base">
+                        <Label layoutX="14.0" layoutY="215.0" text="Juego base" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="ima_logo_game" fitHeight="170.0" fitWidth="300.0" layoutY="14.0" pickOnBounds="true">
+                        <ImageView fx:id="ima_logo_game" fitHeight="170.0" fitWidth="300.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Images/Games_images/Ima_Red_Dead_2.png" />
+                              <Image url="@../Images/Games_images/Logo_Games/Logo_Red_Dead.png" />
                            </image>
                         </ImageView>
                      </children>

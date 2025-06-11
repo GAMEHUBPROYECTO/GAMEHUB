@@ -9,13 +9,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -123,6 +125,7 @@ public class GAMEHUBController implements Initializable {
 
     private ObservableList<File> images_games;
     private int index = 0;
+    private boolean needsReset = false;
 
     @FXML
     private Pane container_carousel;
@@ -179,6 +182,26 @@ public class GAMEHUBController implements Initializable {
         flowpane_games.prefWidthProperty().bind(anchorP.widthProperty());
         flowpane_games.prefHeightProperty().bind(anchorP.heightProperty());
 
+        container_details_game.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (needsReset) {
+                Platform.runLater(() -> {
+                    container_details_game.setVvalue(0);
+                    container_details_game.setHvalue(0);
+                });
+                needsReset = false;
+            }
+        });
+
+        container_all_games.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (needsReset) {
+                Platform.runLater(() -> {
+                    container_all_games.setVvalue(0);
+                    container_all_games.setHvalue(0);
+                });
+                needsReset = false;
+            }
+        });
+
         fade1.setFromValue(0);
         fade1.setToValue(1);
         fade01.setFromValue(1);
@@ -211,6 +234,14 @@ public class GAMEHUBController implements Initializable {
         overlay2.setStyle("-fx-background-color: linear-gradient(to right, rgba(0,0,0,0.5), transparent);");
     }
 
+    public void requestScrollReset() {
+        needsReset = true;
+        container_details_game.setVvalue(0);
+        container_details_game.requestLayout();
+        container_all_games.setVvalue(0);        
+        container_all_games.requestLayout();
+    }
+
     private void update_image_primary() {
         try {
             File imagen = images_games.get(index);
@@ -223,7 +254,7 @@ public class GAMEHUBController implements Initializable {
     public void update_miniatures() {
         try {
             miniatures.getChildren().clear();
-            for (int i = 0; i < images_games.size(); i++) {
+            for (int i = 0; i < (images_games.size() - 1); i++) {
                 int finalI = i;
                 ImageView thumb = new ImageView(new Image(new FileInputStream(images_games.get(i))));
                 thumb.setFitWidth(80);
@@ -245,11 +276,18 @@ public class GAMEHUBController implements Initializable {
         }
     }
 
-    private void animate_transition(boolean haciaDerecha) {
-        TranslateTransition transicion = new TranslateTransition(Duration.millis(300), image_view_game_primary);
-        transicion.setFromX(haciaDerecha ? 400 : -400);
-        transicion.setToX(0);
-        transicion.play();
+    private void animate_transition(boolean moveRight) {
+        TranslateTransition transition = new TranslateTransition(Duration.millis(350), image_view_game_primary);
+        transition.setInterpolator(Interpolator.EASE_BOTH);
+        transition.setFromX(moveRight ? 400 : -400);
+        transition.setToX(0);
+
+        FadeTransition fade = new FadeTransition(Duration.millis(250), image_view_game_primary);
+        fade.setFromValue(0.7);
+        fade.setToValue(1.0);
+
+        ParallelTransition parallel = new ParallelTransition(transition, fade);
+        parallel.play();
     }
 
     private void show_image_primary() {
@@ -272,21 +310,6 @@ public class GAMEHUBController implements Initializable {
             Logger.getLogger(GAMEHUBController.class.getName()).log(Level.SEVERE, "Error al tratar de actualizar el carrusel", e);
         }
 
-    }
-
-    private void create_games(String id) {
-
-        String url = System.getProperty("user.dir") + "\\src\\Images\\Games_images\\Images_Carousel";
-        File file = Paths.get(url).toFile();
-
-        if (file.exists() && file.isDirectory()) {
-            File[] files = file.listFiles((dir, name) -> name.toLowerCase().startsWith(id));
-
-            if (files != null) {
-                images_games.addAll(Arrays.asList(files));
-                update_image_primary();
-            }
-        }
     }
 
     public void load_user_data() {
@@ -361,8 +384,8 @@ public class GAMEHUBController implements Initializable {
 
     @FXML
     private void ActionEvent(ActionEvent event) {
+        requestScrollReset();
         if (event.getSource().equals(btn_shop)) {
-            container_all_games.setVvalue(0);
             container_all_games.setVisible(true);
             HBOX_details_game.setVisible(false);
         }
@@ -386,6 +409,13 @@ public class GAMEHUBController implements Initializable {
 
     private void load_game(Game game) {
         label_name_game_top.setText(game.getName());
+        try {
+            String url_local = System.getProperty("user.dir") + "\\" + game.getURL_images().get(game.getURL_images().size() - 1);
+            File imagen = Paths.get(url_local).toFile();
+            ima_logo_game.setImage(new Image(new FileInputStream(imagen)));
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(GAMEHUBController.class.getName()).log(Level.SEVERE, "Error al tratar de actualizar el logo", e);
+        }
         if (game.getPrice() == 0.0) {
             label_price.setText("Gratis");
             label_price.setId("gratis");
@@ -393,12 +423,13 @@ public class GAMEHUBController implements Initializable {
             label_price.setId("");
             label_price.setText("COP $" + game.getPrice());
         }
+
     }
 
     @FXML
     private void show_game(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
-
+        requestScrollReset();
         Game game = (Game) imageView.getUserData();
         load_game(game);
         image_view_game_primary.setUserData(game);
@@ -419,6 +450,7 @@ public class GAMEHUBController implements Initializable {
         show_image_primary();
 
         HBOX_details_game.setVisible(true);
+        requestScrollReset();
         container_all_games.setVisible(false);
     }
 
