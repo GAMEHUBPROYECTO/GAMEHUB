@@ -45,40 +45,27 @@ public class Stacks_Games {
         return all_games;
     }
 
-    //games_car_shop
-    public void setPushGame(Game game) {
-        int pos = games_car_shop.indexOf(game);
-        if (pos == -1) {
-            games_car_shop.push(game);
+    public void setPushGame(Stack<Game> stack, Game game) {
+        if (!stack.contains(game)) {
+            stack.push(game);
         } else {
             System.out.println("Ya se registró antes este juego.");
         }
     }
 
-    public Stack<Game> getGamesNameUser(String name_user) {
-        Stack<Game> stack = new Stack<>();
-        for (Game aux : games_car_shop) {
-            if (aux.getName_user().equals(name_user)) {
-                stack.push(aux);
-            }
-        }
-        return stack;
-    }
-
-    public Game getGameByNameUserAndName(String name_user, String name) {
-        for (Game game : games_car_shop) {
-            if (game.getName_user().equals(name_user) && game.getName().equals(name)) {
+    public Game getGameByNameUserAndName(Stack<Game> stack, String name_user, String name) {
+        for (Game game : stack) {
+            if (game.getName_user().equals(name_user) && name.equals(game.getName())) {
                 return game;
             }
         }
         return null;
     }
 
-    public void setPopGameByNameUserAndName(String name_user, String name) {
-        Game game = null;
-        if (!games_car_shop.empty()) {
-            game = getGameByNameUserAndName(name_user, name);
-            if ((game != null) && (games_car_shop.remove(game))) {
+    public void setPopGameByNameUserAndName(Stack<Game> stack, String name_user, String name) {
+        Game game = getGameByNameUserAndName(stack, name_user, name);
+        if (!stack.isEmpty()) {
+            if (game != null && stack.remove(game)) {
                 JOptionPane.showMessageDialog(null, "Juego eliminado!");
             } else {
                 JOptionPane.showMessageDialog(null, "El juego no existe!");
@@ -88,357 +75,25 @@ public class Stacks_Games {
         }
     }
 
-    public Stack<Game> getCloneGames() {
-        Stack<Game> games = new Stack<>();
-        int i;
-        Game game = null;
-        if (games_car_shop == null) {
-            return null;
-        } else {
-            for (i = 0; i < games_car_shop.size(); i++) {
-                game = games_car_shop.get(i);
-                games.add(i, game);
+    public Stack<Game> cloneStack(Stack<Game> stack) {
+        return new Stack<Game>() {
+            {
+                addAll(stack);
             }
-            return games;
-        }
+        };
     }
 
-    public void saveDataToFileTXT() {
+    public void saveDataToFileTXT(Stack<Game> stack, String filename) {
 
-        String url = System.getProperty("user.dir") + "\\src\\Files\\Car_Shop.txt";
+        String url = System.getProperty("user.dir") + "\\src\\Files\\" + filename;
 
         Path path = Paths.get(url);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
-            Stack<Game> games = games_car_shop;
+            Stack<Game> games = stack;
 
             for (Game game : games) {
                 writer.write(game.getName_user() + ",; ");
-                writer.write(game.getName() + ",; ");
-                writer.write(game.getPrice() + ",; ");
-                writer.write(String.join(". ", game.getURL_images()));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    public void loadDataFromFileTXT() {
-
-        String url = System.getProperty("user.dir") + "\\src\\Files\\Car_Shop.txt";
-
-        Path path = Paths.get(url);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
-
-            String linea;
-
-            if (!games_car_shop.isEmpty()) {
-                games_car_shop.clear();
-            }
-
-            while ((linea = reader.readLine()) != null) {
-
-                String[] atributos = linea.split(",; ");
-
-                String name_user = atributos[0];
-                String name = atributos[1];
-                float price = Float.parseFloat(atributos[2]);
-
-                String[] urls = atributos[3].split(". ");
-                List<String> URL_images = Arrays.asList(urls);
-
-                Game game = new Game(name_user, name, price, URL_images);
-                setPushGame(game);
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    //games_history    
-    public void setPushGameHistory(Game game) {
-        int pos = games_history.indexOf(game);
-        if (pos == -1) {
-            games_history.push(game);
-        } else {
-            System.out.println("Ya se registró antes este juego.");
-        }
-    }
-
-    public Stack<Game> getGamesNameUserHistory(String name_user) {
-        Stack<Game> stack = new Stack<>();
-        for (Game aux : games_history) {
-            if (aux.getName_user().equals(name_user)) {
-                stack.push(aux);
-            }
-        }
-        return stack;
-    }
-
-    public Game getGameByNameUserAndNameHistory(String name_user, String name) {
-        for (Game game : games_history) {
-            if (game.getName_user().equals(name_user) && game.getName().equals(name)) {
-                return game;
-            }
-        }
-        return null;
-    }
-
-    public void setPopGameByNameUserAndNameHistory(String name_user, String name) {
-        Game game = null;
-        if (!games_history.empty()) {
-            game = getGameByNameUserAndNameHistory(name_user, name);
-            if ((game != null) && (games_history.remove(game))) {
-                JOptionPane.showMessageDialog(null, "Juego eliminado!");
-            } else {
-                JOptionPane.showMessageDialog(null, "El juego no existe!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No hay juegos registrados!");
-        }
-    }
-
-    public Stack<Game> getCloneGamesHistory() {
-        Stack<Game> games = new Stack<>();
-        int i;
-        Game game = null;
-        if (games_history == null) {
-            return null;
-        } else {
-            for (i = 0; i < games_history.size(); i++) {
-                game = games_history.get(i);
-                games.add(i, game);
-            }
-            return games;
-        }
-    }
-
-    public void saveDataToFileTXTHistory() {
-
-        String url = System.getProperty("user.dir") + "\\src\\Files\\History.txt";
-
-        Path path = Paths.get(url);
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
-            Stack<Game> games = games_history;
-
-            for (Game game : games) {
-                writer.write(game.getName_user() + ",; ");
-                writer.write(game.getName() + ",; ");
-                writer.write(game.getPrice() + ",; ");
-                writer.write(String.join(". ", game.getURL_images()));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    public void loadDataFromFileTXTHistory() {
-
-        String url = System.getProperty("user.dir") + "\\src\\Files\\History.txt";
-
-        Path path = Paths.get(url);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
-
-            String linea;
-
-            if (!games_history.isEmpty()) {
-                games_history.clear();
-            }
-
-            while ((linea = reader.readLine()) != null) {
-
-                String[] atributos = linea.split(",; ");
-
-                String name_user = atributos[0];
-                String name = atributos[1];
-                float price = Float.parseFloat(atributos[2]);
-
-                String[] urls = atributos[3].split(". ");
-                List<String> URL_images = Arrays.asList(urls);
-
-                Game game = new Game(name_user, name, price, URL_images);
-                setPushGameHistory(game);
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    //games_favorites    
-    public void setPushGameFavorites(Game game) {
-        int pos = games_favorites.indexOf(game);
-        if (pos == -1) {
-            games_favorites.push(game);
-        } else {
-            System.out.println("Ya se registró antes este juego.");
-        }
-    }
-
-    public Stack<Game> getGamesNameUserFavorites(String name_user) {
-        Stack<Game> stack = new Stack<>();
-        for (Game aux : games_favorites) {
-            if (aux.getName_user().equals(name_user)) {
-                stack.push(aux);
-            }
-        }
-        return stack;
-    }
-
-    public Game getGameByNameUserAndNameFavorites(String name_user, String name) {
-        for (Game game : games_favorites) {
-            if (game.getName_user().equals(name_user) && game.getName().equals(name)) {
-                return game;
-            }
-        }
-        return null;
-    }
-
-    public void setPopGameByNameUserAndNameFavorites(String name_user, String name) {
-        Game game = null;
-        if (!games_favorites.empty()) {
-            game = getGameByNameUserAndNameFavorites(name_user, name);
-            if ((game != null) && (games_favorites.remove(game))) {
-                JOptionPane.showMessageDialog(null, "Juego eliminado!");
-            } else {
-                JOptionPane.showMessageDialog(null, "El juego no existe!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No hay juegos registrados!");
-        }
-    }
-
-    public Stack<Game> getCloneGamesFavorites() {
-        Stack<Game> games = new Stack<>();
-        int i;
-        Game game = null;
-        if (games_favorites == null) {
-            return null;
-        } else {
-            for (i = 0; i < games_favorites.size(); i++) {
-                game = games_favorites.get(i);
-                games.add(i, game);
-            }
-            return games;
-        }
-    }
-
-    public void saveDataToFileTXTFavorites() {
-
-        String url = System.getProperty("user.dir") + "\\src\\Files\\Favorites.txt";
-
-        Path path = Paths.get(url);
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
-            Stack<Game> games = games_favorites;
-
-            for (Game game : games) {
-                writer.write(game.getName_user() + ",; ");
-                writer.write(game.getName() + ",; ");
-                writer.write(game.getPrice() + ",; ");
-                writer.write(String.join(". ", game.getURL_images()));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    public void loadDataFromFileTXTFavorites() {
-
-        String url = System.getProperty("user.dir") + "\\src\\Files\\Favorites.txt";
-
-        Path path = Paths.get(url);
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
-
-            String linea;
-
-            if (!games_favorites.isEmpty()) {
-                games_favorites.clear();
-            }
-
-            while ((linea = reader.readLine()) != null) {
-
-                String[] atributos = linea.split(",; ");
-
-                String name_user = atributos[0];
-                String name = atributos[1];
-                float price = Float.parseFloat(atributos[2]);
-
-                String[] urls = atributos[3].split(". ");
-                List<String> URL_images = Arrays.asList(urls);
-
-                Game game = new Game(name_user, name, price, URL_images);
-                setPushGameFavorites(game);
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    //all_games
-    public void setPushGameAll(Game game) {
-        int pos = all_games.indexOf(game);
-        if (pos == -1) {
-            all_games.push(game);
-        } else {
-            System.out.println("Ya se registró antes este juego.");
-        }
-    }
-
-    public Game getGameByNameAll(String name) {
-        for (Game game : all_games) {
-            if (game.getName().equals(name)) {
-                return game;
-            }
-        }
-        return null;
-    }
-
-    public void setPopGameByNameAll(String name) {
-        Game game = null;
-        if (!all_games.empty()) {
-            game = getGameByNameAll(name);
-            if ((game != null) && (all_games.remove(game))) {
-                JOptionPane.showMessageDialog(null, "Juego eliminado!");
-            } else {
-                JOptionPane.showMessageDialog(null, "El juego no existe!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No hay juegos registrados!");
-        }
-    }
-
-    public Stack<Game> getCloneGamesAll() {
-        Stack<Game> games = new Stack<>();
-        int i;
-        Game game = null;
-        if (all_games == null) {
-            return null;
-        } else {
-            for (i = 0; i < all_games.size(); i++) {
-                game = all_games.get(i);
-                games.add(i, game);
-            }
-            return games;
-        }
-    }
-
-    public void saveDataToFileTXTAll() {
-
-        String url = System.getProperty("user.dir") + "\\src\\Files\\Games.txt";
-
-        Path path = Paths.get(url);
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
-            Stack<Game> games = all_games;
-
-            for (Game game : games) {
                 writer.write(game.getName() + ",; ");
                 writer.write(game.getPrice() + ",; ");
                 writer.write(String.join("; ", game.getURL_images()));
@@ -449,9 +104,9 @@ public class Stacks_Games {
         }
     }
 
-    public void loadDataFromFileTXTAll() {
+    public void loadDataFromFileTXT(Stack<Game> stack, String filename) {
 
-        String url = System.getProperty("user.dir") + "\\src\\Files\\Games.txt";
+        String url = System.getProperty("user.dir") + "\\src\\Files\\" + filename;
 
         Path path = Paths.get(url);
 
@@ -459,25 +114,62 @@ public class Stacks_Games {
 
             String linea;
 
-            if (!all_games.isEmpty()) {
-                all_games.clear();
+            if (!stack.isEmpty()) {
+                stack.clear();
             }
 
             while ((linea = reader.readLine()) != null) {
 
                 String[] atributos = linea.split(",; ");
 
-                String name = atributos[0];
-                float price = Float.parseFloat(atributos[1]);
+                String name_user = atributos[0];
+                String name = atributos[1];
+                float price = Float.parseFloat(atributos[2]);
 
-                String[] urls = atributos[2].split("; ");
+                String[] urls = atributos[3].split("; ");
                 List<String> URL_images = Arrays.asList(urls);
 
-                Game game = new Game(name, price, URL_images);
-                setPushGameAll(game);
+                Game game = new Game(name_user, name, price, URL_images);
+                setPushGame(stack, game);
             }
         } catch (IOException e) {
             Logger.getLogger(Stacks_Games.class.getName()).log(Level.SEVERE, null, e);
         }
+    }
+
+    //games_car_shop
+    public void saveDataToFileTXTCar_Shop() {
+        saveDataToFileTXT(games_car_shop, "Car_Shop.txt");
+    }
+
+    public void loadDataFromFileTXTCar_Shop() {
+        loadDataFromFileTXT(games_car_shop, "Car_Shop.txt");
+    }
+
+    //games_histories
+    public void saveDataToFileTXTHistory() {
+        saveDataToFileTXT(games_history, "History.txt");
+    }
+
+    public void loadDataFromFileTXTHistory() {
+        loadDataFromFileTXT(games_history, "History.txt");
+    }
+
+    //games_favorites        
+    public void saveDataToFileTXTFavorites() {
+        saveDataToFileTXT(games_favorites, "Favorites.txt");
+    }
+
+    public void loadDataFromFileTXTFavorites() {
+        loadDataFromFileTXT(games_favorites, "Favorites.txt");
+    }
+
+    //all_games    
+    public void saveDataToFileTXTAll() {
+        saveDataToFileTXT(all_games, "Games.txt");
+    }
+
+    public void loadDataFromFileTXTAll() {
+        loadDataFromFileTXT(all_games, "Games.txt");
     }
 }
