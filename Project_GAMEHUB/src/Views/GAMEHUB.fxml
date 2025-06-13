@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -766,6 +767,106 @@
             </Pane>
          </children>
       </HBox>
+      <ScrollPane fx:id="container_car_shop_games" focusTraversable="false" hbarPolicy="NEVER" prefHeight="4868.0" prefWidth="705.0" styleClass="bacgroundBoddy" visible="false" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
+         <content>
+            <AnchorPane fx:id="anchorP1" prefHeight="2170.0" prefWidth="1030.0" styleClass="bacgroundBoddy">
+               <children>
+                  <FlowPane fx:id="flowpane_games_car" hgap="10.0" layoutX="20.0" layoutY="200.0" prefHeight="1454.0" prefWidth="603.0" styleClass="bacgroundBoddy" vgap="10.0">
+                     <children>
+                        <Pane fx:id="card_game_car" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #AFCDD3; -fx-background-radius: 20;" styleClass="juegos">
+                           <children>
+                              <ImageView fitHeight="180.0" fitWidth="140.0" layoutX="20.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/Games_images/Ima_Red_Dead.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane layoutX="168.0" layoutY="14.0" prefHeight="100.0" prefWidth="140.0">
+                                 <children>
+                                    <Label id="base" text="Juego Base">
+                                       <font>
+                                          <Font name="System Bold" size="10.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutY="20.0" text="Red Dead II">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Label layoutX="485.0" layoutY="14.0" text="COP $79960,00">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Pane layoutX="320.0" layoutY="115.0" prefHeight="72.0" prefWidth="266.0">
+                                 <children>
+                                    <Button layoutX="112.0" layoutY="45.0" mnemonicParsing="false" onAction="#add_favorites" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: none; -fx-border-color: #000000; -fx-border-radius: 5;" text="Mover a lista de deseos">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="27.0" layoutY="45.0" mnemonicParsing="false" onAction="#remove_game_card" prefHeight="27.0" prefWidth="72.0" style="-fx-background-color: none;" text="Eliminar" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </Pane>
+                           </children>
+                           <FlowPane.margin>
+                              <Insets />
+                           </FlowPane.margin>
+                        </Pane>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </FlowPane>
+                  <Label layoutX="24.0" layoutY="102.0" text="Mi carrito">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="661.0" layoutY="207.0" prefHeight="311.0" prefWidth="280.0" style="-fx-border-color: #000000; -fx-border-radius: 8;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Resumen de juegos ">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="64.0" text="Precio:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="txt_total" layoutX="74.0" layoutY="64.0" text="COP 000000,00">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="174.0" text="SubTotal:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="txt_sub_total" layoutX="92.0" layoutY="174.0" text="COP 000000,00">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btn_go_shop" layoutX="24.0" layoutY="223.0" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="72.0" prefWidth="230.0" styleClass="btn-shop" text="Ir a la pantalla de compra" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Button>
+                        <Separator layoutX="21.0" layoutY="162.0" prefHeight="3.0" prefWidth="230.0" style="-fx-background-color: #000000;" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
       <Pane layoutY="660.0" prefHeight="40.0" prefWidth="1300.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

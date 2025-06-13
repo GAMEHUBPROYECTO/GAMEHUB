@@ -7,12 +7,14 @@ public class Game {
     private String name_user;
     private String name;
     private float price;
+    private String description;
     private List<String> URL_images;
 
-    public Game(String name_user, String name, float price, List<String> URL_images) {
+    public Game(String name_user, String name, float price, String description, List<String> URL_images) {
         this.name_user = name_user;
         this.name = name;
         this.price = price;
+        this.description = description;
         this.URL_images = URL_images;
     }
     
@@ -47,6 +49,14 @@ public class Game {
         this.price = price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     public List<String> getURL_images() {
         return URL_images;
     }

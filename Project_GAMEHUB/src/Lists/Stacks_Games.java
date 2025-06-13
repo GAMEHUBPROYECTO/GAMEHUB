@@ -125,11 +125,12 @@ public class Stacks_Games {
                 String name_user = atributos[0];
                 String name = atributos[1];
                 float price = Float.parseFloat(atributos[2]);
+                String description = atributos[3];
 
-                String[] urls = atributos[3].split("; ");
+                String[] urls = atributos[4].split("; ");
                 List<String> URL_images = Arrays.asList(urls);
 
-                Game game = new Game(name_user, name, price, URL_images);
+                Game game = new Game(name_user, name, price, description, URL_images);
                 setPushGame(stack, game);
             }
         } catch (IOException e) {

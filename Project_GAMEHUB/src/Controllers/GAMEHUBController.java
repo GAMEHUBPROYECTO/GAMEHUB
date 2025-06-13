@@ -126,6 +126,7 @@ public class GAMEHUBController implements Initializable {
     private ObservableList<File> images_games;
     private int index = 0;
     private boolean needsReset = false;
+    private boolean needsReset_2 = false;
 
     @FXML
     private Pane container_carousel;
@@ -171,6 +172,20 @@ public class GAMEHUBController implements Initializable {
     private Pane Spider_Man;
     @FXML
     private Label label_name_game_top;
+    @FXML
+    private ScrollPane container_car_shop_games;
+    @FXML
+    private AnchorPane anchorP1;
+    @FXML
+    private FlowPane flowpane_games_car;
+    @FXML
+    private Pane card_game_car;
+    @FXML
+    private Label txt_total;
+    @FXML
+    private Label txt_sub_total;
+    @FXML
+    private Button btn_go_shop;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -193,12 +208,12 @@ public class GAMEHUBController implements Initializable {
         });
 
         container_all_games.vvalueProperty().addListener((obs, oldVal, newVal) -> {
-            if (needsReset) {
+            if (needsReset_2) {
                 Platform.runLater(() -> {
                     container_all_games.setVvalue(0);
                     container_all_games.setHvalue(0);
                 });
-                needsReset = false;
+                needsReset_2 = false;
             }
         });
 
@@ -236,9 +251,11 @@ public class GAMEHUBController implements Initializable {
 
     public void requestScrollReset() {
         needsReset = true;
-        container_details_game.setVvalue(0);
         container_details_game.requestLayout();
-        container_all_games.setVvalue(0);        
+    }
+
+    public void requestScrollReset_2() {
+        needsReset_2 = true;
         container_all_games.requestLayout();
     }
 
@@ -384,7 +401,7 @@ public class GAMEHUBController implements Initializable {
 
     @FXML
     private void ActionEvent(ActionEvent event) {
-        requestScrollReset();
+        requestScrollReset_2();
         if (event.getSource().equals(btn_shop)) {
             container_all_games.setVisible(true);
             HBOX_details_game.setVisible(false);
@@ -419,7 +436,9 @@ public class GAMEHUBController implements Initializable {
         if (game.getPrice() == 0.0) {
             label_price.setText("Gratis");
             label_price.setId("gratis");
+            btn_shop_now.setText("OBTENER AHORA");
         } else {
+            btn_shop_now.setText("COMPRAR AHORA");
             label_price.setId("");
             label_price.setText("COP $" + game.getPrice());
         }
@@ -471,6 +490,14 @@ public class GAMEHUBController implements Initializable {
                 update_image_primary();
             }
         }
+    }
+
+    @FXML
+    private void add_favorites(ActionEvent event) {
+    }
+
+    @FXML
+    private void remove_game_card(ActionEvent event) {
     }
 
 }
