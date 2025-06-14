@@ -2,6 +2,8 @@ package Controllers;
 
 import Lists.Instancias;
 import Lists.Stacks_Games;
+import Models.Admin;
+import Models.Client;
 import Models.Game;
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +29,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -127,6 +131,8 @@ public class GAMEHUBController implements Initializable {
     private int index = 0;
     private boolean needsReset = false;
     private boolean needsReset_2 = false;
+    private boolean needsReset_3 = false;
+    private Object UserLoged = null;
 
     @FXML
     private Pane container_carousel;
@@ -179,8 +185,6 @@ public class GAMEHUBController implements Initializable {
     @FXML
     private FlowPane flowpane_games_car;
     @FXML
-    private Pane card_game_car;
-    @FXML
     private Label txt_total;
     @FXML
     private Label txt_sub_total;
@@ -217,6 +221,16 @@ public class GAMEHUBController implements Initializable {
             }
         });
 
+        container_car_shop_games.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (needsReset_3) {
+                Platform.runLater(() -> {
+                    container_car_shop_games.setVvalue(0);
+                    container_car_shop_games.setHvalue(0);
+                });
+                needsReset_3 = false;
+            }
+        });
+
         fade1.setFromValue(0);
         fade1.setToValue(1);
         fade01.setFromValue(1);
@@ -249,6 +263,10 @@ public class GAMEHUBController implements Initializable {
         overlay2.setStyle("-fx-background-color: linear-gradient(to right, rgba(0,0,0,0.5), transparent);");
     }
 
+    public void setUserLoged(Object UserLoged) {
+        this.UserLoged = UserLoged;
+    }
+
     public void requestScrollReset() {
         needsReset = true;
         container_details_game.requestLayout();
@@ -256,7 +274,13 @@ public class GAMEHUBController implements Initializable {
 
     public void requestScrollReset_2() {
         needsReset_2 = true;
+        container_all_games.setVvalue(0);
         container_all_games.requestLayout();
+    }
+
+    public void requestScrollReset_3() {
+        needsReset_3 = true;
+        container_car_shop_games.requestLayout();
     }
 
     private void update_image_primary() {
@@ -271,13 +295,13 @@ public class GAMEHUBController implements Initializable {
     public void update_miniatures() {
         try {
             miniatures.getChildren().clear();
-            for (int i = 0; i < (images_games.size() - 1); i++) {
+            for (int i = 0; i < (images_games.size() - 2); i++) {
                 int finalI = i;
                 ImageView thumb = new ImageView(new Image(new FileInputStream(images_games.get(i))));
                 thumb.setFitWidth(80);
                 thumb.setFitHeight(80);
                 thumb.setPreserveRatio(true);
-                thumb.setStyle("-fx-cursor: hand; -fx-border-radius: 8;");
+                thumb.setStyle("-fx-cursor: hand; -fx-background-radius: 8;");
                 thumb.setOnMouseClicked(e -> {
                     if (index != finalI) {
                         int anterior = index;
@@ -402,9 +426,11 @@ public class GAMEHUBController implements Initializable {
     @FXML
     private void ActionEvent(ActionEvent event) {
         requestScrollReset_2();
+        HBOX_details_game.setVisible(false);
+
         if (event.getSource().equals(btn_shop)) {
             container_all_games.setVisible(true);
-            HBOX_details_game.setVisible(false);
+            container_car_shop_games.setVisible(false);
         }
         if (event.getSource().equals(btn_library)) {
         }
@@ -413,15 +439,101 @@ public class GAMEHUBController implements Initializable {
         if (event.getSource().equals(btn_history)) {
         }
         if (event.getSource().equals(btn_myShopping)) {
+            load_car_shop();
+            container_car_shop_games.setVisible(true);
+            container_all_games.setVisible(false);
         }
         if (event.getSource().equals(btn_profile)) {
         }
         if (event.getSource().equals(btn_add_car)) {
+            add_game_car();
         }
         if (event.getSource().equals(btn_add_favorites)) {
+            //
         }
         if (event.getSource().equals(btn_shop_now)) {
         }
+        if (event.getSource().equals(btn_go_shop)) {
+        }
+    }
+
+    private void add_game_car() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Aviso de confirmación", ButtonType.OK);
+        Game game = (Game) image_view_game_primary.getUserData();
+
+        if (UserLoged != null) {
+            if (UserLoged instanceof Admin) {
+                Admin admin = (Admin) UserLoged;
+                game.setName_user(admin.getName_admin());
+            } else if (UserLoged instanceof Client) {
+                Client client = (Client) UserLoged;
+                game.setName(client.getName_client());
+            }
+
+            Game search = stacks_games.getGameByNameUserAndName(stacks_games.getGames_car_shop(), game.getName_user(), game.getName());
+            if (search == null) {
+                stacks_games.getGames_car_shop().add(game);
+                stacks_games.saveDataToFileTXT(stacks_games.getGames_car_shop(), "Car_Shop.txt");
+                load_car_shop();
+                alert.setContentText("Juego agregado al carrito de compras de forma exitosa.");
+            } else {
+                alert.setContentText("Este juego ya existe en el carrito.");
+            }
+            alert.show();
+        }
+    }
+
+    public void load_car_shop() {
+        Platform.runLater(() -> {
+            String name_user;
+            if (UserLoged instanceof Admin) {
+                Admin admin = (Admin) UserLoged;
+                name_user = admin.getName_admin();
+            } else {
+                Client client = (Client) UserLoged;
+                name_user = client.getName_client();
+            }            
+            flowpane_games_car.getChildren().clear();
+            for (Game game : stacks_games.getGames_car_shop()) {
+                if (game.getName_user().equals(name_user)) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/game_card.fxml"));
+                        Pane gameCard = loader.load();
+                        GameCardController controller = loader.getController();
+                        controller.setFlowpane_games_car(flowpane_games_car);
+                        controller.setMain_controller(this);
+                        for (Node node : gameCard.getChildren()) {
+                            if (node instanceof ImageView) {
+                                String urlLocal = System.getProperty("user.dir") + "\\" + game.getURL_images().get(4);
+                                File file = Paths.get(urlLocal).toFile();
+                                Image ima = new Image(new FileInputStream(file));
+                                ((ImageView) node).setImage(ima);
+                            }
+                            if (node instanceof Label) {
+                                Label label_name = (Label) node;
+                                
+                                if (label_name.getId().startsWith("label_name_game_car")) {
+                                    label_name.setText(game.getName());
+                                } else if (label_name.getId().startsWith("label_price_game_car")) {
+                                    if (game.getPrice() == 0.0) {
+                                        label_name.setText("Gratis");
+                                        label_name.setId("gratis");
+                                    } else {
+                                        label_name.setId("");
+                                        label_name.setText("COP $" + String.format("%,.2f", game.getPrice()));
+                                    }
+                                }
+                            }
+                        }
+
+                        gameCard.setUserData(game);
+                        flowpane_games_car.getChildren().add(gameCard);
+                    } catch (IOException e) {
+                        Logger.getLogger(GAMEHUBController.class.getName()).log(Level.SEVERE, "Error al cargar componente de juego.", e);
+                    }
+                }
+            }
+        });
     }
 
     private void load_game(Game game) {
@@ -484,7 +596,7 @@ public class GAMEHUBController implements Initializable {
             }
 
         } else {
-            if (index < images_games.size() - 1) {
+            if (index < 2) {
                 index++;
                 animate_transition(true);
                 update_image_primary();
@@ -492,12 +604,5 @@ public class GAMEHUBController implements Initializable {
         }
     }
 
-    @FXML
-    private void add_favorites(ActionEvent event) {
-    }
-
-    @FXML
-    private void remove_game_card(ActionEvent event) {
-    }
 
 }

@@ -3,7 +3,7 @@ package Models;
 import java.util.List;
 
 public class Game {
-    
+
     private String name_user;
     private String name;
     private float price;
@@ -17,7 +17,7 @@ public class Game {
         this.description = description;
         this.URL_images = URL_images;
     }
-    
+
     public Game(String name, float price, List<String> URL_images) {
         this.name_user = null;
         this.name = name;
@@ -49,19 +49,19 @@ public class Game {
         this.price = price;
     }
 
-    public String getDescription() {
+    public String getDescription() {        
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public List<String> getURL_images() {
         return URL_images;
     }
 
     public void setURL_images(List<String> URL_images) {
         this.URL_images = URL_images;
-    }        
+    }
 }

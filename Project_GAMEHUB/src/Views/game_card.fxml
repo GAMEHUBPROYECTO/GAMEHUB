@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="card_game_car" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="600.0" styleClass="card_games" stylesheets="@../Style/Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GameCardController">
+   <children>
+      <ImageView fitHeight="180.0" fitWidth="140.0" layoutX="20.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Games_images/Ima_Red_Dead.png" />
+         </image>
+      </ImageView>
+      <Label id="base" layoutX="168.0" layoutY="14.0" text="Juego Base">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_name_game_car" layoutX="168.0" layoutY="29.0" text="Red Dead II">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_price_game_car" layoutX="485.0" layoutY="14.0" text="COP $79960,00">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button layoutX="426.0" layoutY="149.0" mnemonicParsing="false" onAction="#add_favorites" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: none; -fx-border-color: #000000; -fx-border-radius: 5;" text="Mover a lista de deseos">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="334.0" layoutY="149.0" mnemonicParsing="false" onAction="#remove_game_card" prefHeight="27.0" prefWidth="72.0" style="-fx-background-color: none;" text="Eliminar" underline="true">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

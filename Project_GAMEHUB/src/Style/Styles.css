@@ -13,7 +13,7 @@
 
 .btn-nav-bar{
     -fx-background-color: rgba(75, 73, 70,0.3);
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);    
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 3);
     -fx-pref-width: 160px;
     -fx-pref-height: 50px;
     -fx-cursor: hand;
@@ -136,4 +136,17 @@
 
 .image-game:pressed{
     -fx-cursor: closed-hand;
+}
+
+.card_games{
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.1, 0, 2);
+}
+
+.card_games:hover{
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0.1, 0, 4);
 }

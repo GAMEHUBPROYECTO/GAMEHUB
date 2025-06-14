@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
     private final List_Double_Admins listAdmins = Instancias.getInstancias().getList_admins();
     private final List_Double_Clients listClients = Instancias.getInstancias().getList_clients();
     private final Stacks_Games stacksGames = Instancias.getInstancias().getStacks_games();
-    
+
     @FXML
     private Pane login_users;
     @FXML
@@ -71,7 +71,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         listAdmins.loadDataFromFileTXT();
         listClients.loadDataFromFileTXT();
-        stacksGames.loadDataFromFileTXTAll();
+        stacksGames.loadDataFromFileTXT();                
     }
 
     public void run_signup(String type) {
@@ -101,7 +101,7 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void run_GAMEHUB(String type) {
+    public void run_GAMEHUB(String type, Object user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/GAMEHUB.fxml"));
             Parent root = loader.load();
@@ -114,10 +114,12 @@ public class LoginController implements Initializable {
             stage.setScene(scene);
 
             stage.setOnShown((WindowEvent event) -> {
-                controller.setVisible(type);        
+                controller.setVisible(type);
                 controller.load_user_data();
-            });                        
-            
+                controller.setUserLoged(user);
+                controller.load_car_shop();
+            });
+
             stage.setOnCloseRequest((WindowEvent value) -> {
                 controller.run_login(type);
             });
@@ -212,7 +214,7 @@ public class LoginController implements Initializable {
                     PauseTransition pause = new PauseTransition(Duration.seconds(5));
                     pause.setOnFinished(event -> {
                         scene.setCursor(Cursor.DEFAULT);
-                        run_GAMEHUB(type);
+                        run_GAMEHUB(type, admin);
                     });
                     pause.play();
                 } else {
@@ -252,7 +254,7 @@ public class LoginController implements Initializable {
                     PauseTransition pause = new PauseTransition(Duration.seconds(5));
                     pause.setOnFinished(event -> {
                         scene.setCursor(Cursor.DEFAULT);
-                        run_GAMEHUB(type);
+                        run_GAMEHUB(type, client);
                     });
                     pause.play();
                 } else {

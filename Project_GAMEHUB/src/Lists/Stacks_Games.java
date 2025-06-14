@@ -96,6 +96,7 @@ public class Stacks_Games {
                 writer.write(game.getName_user() + ",; ");
                 writer.write(game.getName() + ",; ");
                 writer.write(game.getPrice() + ",; ");
+                writer.write(game.getDescription()+ ",; ");
                 writer.write(String.join("; ", game.getURL_images()));
                 writer.newLine();
             }
@@ -172,5 +173,12 @@ public class Stacks_Games {
 
     public void loadDataFromFileTXTAll() {
         loadDataFromFileTXT(all_games, "Games.txt");
+    }
+
+    public void loadDataFromFileTXT() {
+        loadDataFromFileTXTAll();
+        loadDataFromFileTXTCar_Shop();
+        loadDataFromFileTXTFavorites();
+        loadDataFromFileTXTHistory();
     }
 }
