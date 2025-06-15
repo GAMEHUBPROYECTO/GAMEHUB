@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="77.0" prefWidth="260.0" style="-fx-background-color: none; -fx-border-color: #333; -fx-border-radius: 5px;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GameCardPurchaseController">
+   <children>
+      <ImageView fx:id="ima_game" fitHeight="72.0" fitWidth="58.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Games_images/Ima_Red_Dead.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="66.0" layoutY="2.0" text="Juego base">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_name" layoutX="68.0" layoutY="17.0" text="Red Dead">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_price" layoutX="135.0" layoutY="47.0" text="COP $79960,00">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

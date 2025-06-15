@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="248.0" prefWidth="180.0" styleClass="panel-juegos" stylesheets="@../Style/Styles.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GameCardLibraryController">
+   <children>
+      <ImageView fx:id="ima_game" fitHeight="180.0" fitWidth="140.0" layoutX="20.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Games_images/Ima_Red_Dead.png" />
+         </image>
+      </ImageView>
+      <Label id="base" layoutX="20.0" layoutY="198.0" text="Juego Base">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="txt_name" layoutX="20.0" layoutY="215.0" text="Red Dead II" />
+   </children>
+</Pane>

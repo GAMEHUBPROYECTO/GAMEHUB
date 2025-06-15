@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -98,9 +98,9 @@ public class Stacks_Games {
                 if (game.getDate_purchase() == null) {
                     writer.write("NULL,; ");
                 } else {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     String date = formatter.format(game.getDate_purchase());
-                    writer.write(date);
+                    writer.write(date + ",; ");
                 }
                 writer.write(game.getName_user() + ",; ");
                 writer.write(game.getName() + ",; ");
@@ -143,9 +143,9 @@ public class Stacks_Games {
                 Game game = new Game(name_user, name, price, description, URL_images);
 
                 if (!atributos[0].equals("NULL")) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    LocalDate fecha = LocalDate.parse(atributos[0], formatter);
-                    game.setDate_purchase(fecha.atStartOfDay());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    LocalDateTime fecha = LocalDateTime.parse(atributos[0], formatter);
+                    game.setDate_purchase(fecha);
                 }
 
                 setPushGame(stack, game);

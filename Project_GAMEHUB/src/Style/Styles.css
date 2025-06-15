@@ -150,3 +150,80 @@
     -fx-border-width: 2;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0.1, 0, 4);
 }
+
+#text_area {
+    -fx-background-color: #36332F;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+    -fx-border-color: #36332F;
+    -fx-border-radius: 5;
+    -fx-text-fill: #ffffff;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+#text_area .content {
+    -fx-background-color: #36332F;
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-background-image: url('../Images/Logo.png');
+    -fx-background-size: inherit;
+    -fx-background-repeat: repeat-x;
+    -fx-background-position: left center;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-padding: 5px 0 5px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 1px 0 0;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+}
+
+.table-view .column-header .label{
+    -fx-alignment: CENTER;
+}
+
+.table-view .table-cell {
+    -fx-padding: 8px;
+    -fx-border-color: #eeeeee;
+    -fx-border-width: 0 0 1px 0;
+    -fx-font-size: 11px;
+    -fx-text-fill: #555555;
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #4285f4;
+    -fx-text-fill: white;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #cccccc;
+    -fx-background-radius: 5px;
+}
+
+#label{
+    -fx-text-fill: white;
+}
