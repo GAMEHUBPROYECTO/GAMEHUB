@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -93,10 +95,17 @@ public class Stacks_Games {
             Stack<Game> games = stack;
 
             for (Game game : games) {
+                if (game.getDate_purchase() == null) {
+                    writer.write("NULL,; ");
+                } else {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    String date = formatter.format(game.getDate_purchase());
+                    writer.write(date);
+                }
                 writer.write(game.getName_user() + ",; ");
                 writer.write(game.getName() + ",; ");
                 writer.write(game.getPrice() + ",; ");
-                writer.write(game.getDescription()+ ",; ");
+                writer.write(game.getDescription() + ",; ");
                 writer.write(String.join("; ", game.getURL_images()));
                 writer.newLine();
             }
@@ -123,15 +132,22 @@ public class Stacks_Games {
 
                 String[] atributos = linea.split(",; ");
 
-                String name_user = atributos[0];
-                String name = atributos[1];
-                float price = Float.parseFloat(atributos[2]);
-                String description = atributos[3];
+                String name_user = atributos[1];
+                String name = atributos[2];
+                float price = Float.parseFloat(atributos[3]);
+                String description = atributos[4];
 
-                String[] urls = atributos[4].split("; ");
+                String[] urls = atributos[5].split("; ");
                 List<String> URL_images = Arrays.asList(urls);
 
                 Game game = new Game(name_user, name, price, description, URL_images);
+
+                if (!atributos[0].equals("NULL")) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    LocalDate fecha = LocalDate.parse(atributos[0], formatter);
+                    game.setDate_purchase(fecha.atStartOfDay());
+                }
+
                 setPushGame(stack, game);
             }
         } catch (IOException e) {

@@ -1,9 +1,11 @@
 package Models;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Game {
 
+    private LocalDateTime date_purchase;
     private String name_user;
     private String name;
     private float price;
@@ -11,6 +13,7 @@ public class Game {
     private List<String> URL_images;
 
     public Game(String name_user, String name, float price, String description, List<String> URL_images) {
+        this.date_purchase = null;
         this.name_user = name_user;
         this.name = name;
         this.price = price;
@@ -25,6 +28,14 @@ public class Game {
         this.URL_images = URL_images;
     }
 
+    public LocalDateTime getDate_purchase() {
+        return date_purchase;
+    }
+
+    public void setDate_purchase(LocalDateTime date_purchase) {
+        this.date_purchase = date_purchase;
+    }
+    
     public String getName_user() {
         return name_user;
     }
@@ -49,7 +60,7 @@ public class Game {
         this.price = price;
     }
 
-    public String getDescription() {        
+    public String getDescription() {
         return description;
     }
 
