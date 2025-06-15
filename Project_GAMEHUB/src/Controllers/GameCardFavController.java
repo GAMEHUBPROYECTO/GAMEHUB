@@ -13,12 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 
-public class GameCardController implements Initializable {
+public class GameCardFavController implements Initializable {
 
     private final Stacks_Games stacks_games = Instancias.getInstancias().getStacks_games();
-    private FlowPane flowpane_games_car;
+    private FlowPane flowpane_games_favorites;
     private GAMEHUBController main_controller;
-
+    
     @FXML
     private Pane card_game_car;
     @FXML
@@ -27,28 +27,28 @@ public class GameCardController implements Initializable {
     private Label label_price_game_car;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
+    public void initialize(URL url, ResourceBundle rb) {        
+    }    
 
-    public void setFlowpane_games_car(FlowPane flowpane_games_car) {
-        this.flowpane_games_car = flowpane_games_car;
+    public void setFlowpane_games_favorites(FlowPane flowpane_games_favorites) {
+        this.flowpane_games_favorites = flowpane_games_favorites;
     }
 
     public void setMain_controller(GAMEHUBController main_controller) {
         this.main_controller = main_controller;
     }
-
+    
     @FXML
-    private void add_favorites(ActionEvent event) {
+    private void add_car_shop(ActionEvent event) {
         Button button = (Button) event.getSource();
         Pane pane = (Pane) button.getParent();
         Game game = (Game) pane.getUserData();
-        stacks_games.getGames_favorites().add(game);
-        stacks_games.saveDataToFileTXTFavorites();
-        stacks_games.getGames_car_shop().remove(game);
+        stacks_games.getGames_car_shop().add(game);
         stacks_games.saveDataToFileTXTCar_Shop();
-        flowpane_games_car.getChildren().remove(pane);
-        main_controller.load_favorites_container("");        
+        stacks_games.getGames_favorites().remove(game);
+        stacks_games.saveDataToFileTXTFavorites();        
+        flowpane_games_favorites.getChildren().remove(pane);
+        main_controller.load_car_shop();
     }
 
     @FXML
@@ -56,9 +56,9 @@ public class GameCardController implements Initializable {
         Button button = (Button) event.getSource();
         Pane pane = (Pane) button.getParent();
         Game game = (Game) pane.getUserData();
-        stacks_games.getGames_car_shop().remove(game);
-        stacks_games.saveDataToFileTXTCar_Shop();
-        flowpane_games_car.getChildren().remove(pane);
-        main_controller.load_car_shop();
-    }
+        stacks_games.getGames_favorites().remove(game);
+        stacks_games.saveDataToFileTXTFavorites();
+        flowpane_games_favorites.getChildren().remove(pane);
+        main_controller.load_favorites_container("");
+    }    
 }
