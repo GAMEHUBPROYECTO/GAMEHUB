@@ -634,7 +634,7 @@ public class GAMEHUBController implements Initializable {
                 game.setName_user(admin.getName_admin());
             } else if (UserLoged instanceof Client) {
                 Client client = (Client) UserLoged;
-                game.setName(client.getName_client());
+                game.setName_user(client.getName_client());
             }
             
             Game search = stacks_games.getGameByNameUserAndName(stacks_games.getGames_favorites(), game.getName_user(), game.getName());
@@ -766,7 +766,7 @@ public class GAMEHUBController implements Initializable {
                 game.setName_user(admin.getName_admin());
             } else if (UserLoged instanceof Client) {
                 Client client = (Client) UserLoged;
-                game.setName(client.getName_client());
+                game.setName_user(client.getName_client());
             }
             
             Game search = stacks_games.getGameByNameUserAndName(stacks_games.getGames_car_shop(), game.getName_user(), game.getName());
@@ -1258,8 +1258,6 @@ public class GAMEHUBController implements Initializable {
             panel_logaut.setVisible(false);
             container_all_games.setVisible(true);
             panel_menu_left.setVisible(true);
-            txt_user_name.clear();
-            txt_user_pass.clear();
         }
     }
     
